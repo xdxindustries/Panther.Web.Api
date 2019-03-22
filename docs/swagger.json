@@ -1,0 +1,1019 @@
+---
+swagger: "2.0"
+info:
+  description: Panther Systems Web API
+  version: "0.1"
+  title: Panther.Web.Api
+host: virtserver.swaggerhub.com
+basePath: /xdxindustries/Panther.Web.Api/0.1
+schemes:
+- https
+security:
+- basicAuth: []
+paths:
+  /api/Orders:
+    get:
+      tags:
+      - Orders
+      summary: Gets a list of all orders in the system
+      parameters: []
+      responses:
+        200:
+          description: List of orders
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Order'
+        401:
+          description: Unauthorized
+  /api/Orders/{orderKey}:
+    get:
+      tags:
+      - Orders
+      summary: Returns an order by Key.
+      parameters:
+      - name: orderKey
+        in: path
+        required: true
+        type: number
+      responses:
+        200:
+          description: An order
+          schema:
+            $ref: '#/definitions/Order'
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+  /api/Customers:
+    get:
+      tags:
+      - Customers
+      summary: Gets list of acceptable customers
+      parameters: []
+      responses:
+        200:
+          description: List of customers
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ShipTo'
+        401:
+          description: Unauthorized
+  /api/Customers/{ShipToKey}:
+    get:
+      tags:
+      - Customers
+      summary: Returns a Customer by ShipToKey.
+      parameters:
+      - name: ShipToKey
+        in: path
+        description: The ShipToKey of the customer to return.
+        required: true
+        type: number
+      responses:
+        200:
+          description: A customer
+          schema:
+            $ref: '#/definitions/ShipTo'
+        401:
+          description: Unauthorized
+        404:
+          description: Not Found
+securityDefinitions:
+  basicAuth:
+    type: basic
+definitions:
+  Core:
+    type: object
+    required:
+    - CoreCode
+    - CoreDiameter
+    - CoreKey
+    - Description
+    - IsActive
+    - PlugWeight
+    - WeightFactor
+    properties:
+      CoreKey:
+        type: number
+        example: 1.0
+      CoreCode:
+        type: string
+        example: 305mm
+      Description:
+        type: string
+        example: 305mm
+      CoreDiameter:
+        type: number
+        example: 304.8
+      WeightFactor:
+        type: number
+        example: 0.0
+      IsActive:
+        type: boolean
+        example: true
+      PlugWeight:
+        type: number
+        example: 0.0
+  FreightOnBoard:
+    type: object
+    required:
+    - FreightOnBoardKey
+    - FreightOnBoard_
+    - IsActive
+    properties:
+      FreightOnBoardKey:
+        type: number
+        example: 1.0
+      FreightOnBoard_:
+        type: string
+        example: origin
+      IsActive:
+        type: boolean
+        example: true
+  FreightPaymentType:
+    type: object
+    required:
+    - Description
+    - FreightPaymentTypeKey
+    - FreightPaymentType_
+    - GenerateAccrual
+    - IsActive
+    - IsPrepaid
+    properties:
+      FreightPaymentTypeKey:
+        type: number
+        example: 2.0
+      FreightPaymentType_:
+        type: string
+        example: prepaid
+      Description:
+        type: string
+        example: "1"
+      IsActive:
+        type: boolean
+        example: true
+      IsPrepaid:
+        type: boolean
+        example: true
+      GenerateAccrual:
+        type: boolean
+        example: true
+  InvoiceTo:
+    type: object
+    required:
+    - ArBalance
+    - ContactPhone
+    - CorporateArNumber
+    - CreditLimit
+    - CurrencyLabel
+    - CustomerTypeKey
+    - DefaultEmailAddress
+    - InvoiceToId
+    - InvoiceToKey
+    - IsActive
+    - LastUpdateDate
+    - LastUpdateOperator
+    - LastUpdateWorkstation
+    - LegalAddress1
+    - LegalAddress2
+    - LegalCity
+    - LegalCountry
+    - LegalPostalCode
+    - LegalState
+    - Name
+    - RemitToKey
+    - ShortName
+    - Term
+    - TermsKey
+    - User1
+    properties:
+      InvoiceToKey:
+        type: number
+        example: 1.0
+      InvoiceToId:
+        type: string
+        example: MILL
+      Name:
+        type: string
+        example: MILL
+      ShortName:
+        type: string
+        example: MILL
+      ContactPhone:
+        type: string
+        example: 123-456-7890
+      LegalAddress1:
+        type: string
+        example: 2 Rue Angus Nord
+      LegalAddress2:
+        type: string
+      LegalCity:
+        type: string
+        example: East Angus
+      LegalState:
+        type: string
+        example: QC
+      LegalPostalCode:
+        type: string
+        example: YR1 J0B
+      LegalCountry:
+        type: string
+        example: CA
+      DefaultEmailAddress:
+        type: string
+        format: email
+        example: justan@example.com
+      RemitToKey:
+        type: number
+        example: 1.0
+      CorporateArNumber:
+        type: string
+      ArBalance:
+        type: number
+        example: 0.0
+      CreditLimit:
+        type: number
+        example: 0.0
+      TermsKey:
+        type: number
+        example: 1.0
+      IsActive:
+        type: boolean
+        example: true
+      CustomerTypeKey:
+        type: number
+        example: 5.0
+      LastUpdateDate:
+        type: string
+        format: date-time
+      LastUpdateOperator:
+        type: string
+        example: mark
+      LastUpdateWorkstation:
+        type: string
+        example: Portal
+      CurrencyLabel:
+        type: string
+      User1:
+        type: string
+      Term:
+        $ref: '#/definitions/PaymentTerm'
+  Machine:
+    type: object
+    required:
+    - IsActive
+    - MachineDescription
+    - MachineId
+    - MachineTypeKey
+    - SendsProductData
+    properties:
+      MachineId:
+        type: string
+        example: "1"
+      MachineTypeKey:
+        type: number
+        example: 1.0
+      MachineDescription:
+        type: string
+        example: Machine à Papier 1
+      SendsProductData:
+        type: boolean
+        example: false
+      IsActive:
+        type: boolean
+        example: true
+  MeasureSystem:
+    type: object
+    required:
+    - MeasureSystemKey
+    - MeasureSystem_
+    properties:
+      MeasureSystemKey:
+        type: number
+        example: 1.0
+      MeasureSystem_:
+        type: string
+        example: english
+  MeasureType:
+    type: object
+    required:
+    - DisplayName
+    - IsActive
+    - IsEnglishMeasure
+    - MeasureTypeIndex
+    - MeasureTypeKey
+    - MeasureType_
+    - ValidForCustomerUnit
+    - ValidForInvoice
+    - ValidForPrice
+    - ValidForShippingUnit
+    properties:
+      MeasureTypeKey:
+        type: number
+        example: 7.0
+      MeasureType_:
+        type: string
+        example: lineal feet
+      ValidForCustomerUnit:
+        type: boolean
+        example: true
+      ValidForPrice:
+        type: boolean
+        example: false
+      ValidForShippingUnit:
+        type: boolean
+        example: false
+      ValidForInvoice:
+        type: boolean
+        example: true
+      IsEnglishMeasure:
+        type: boolean
+        example: true
+      IsActive:
+        type: boolean
+        example: true
+      MeasureTypeIndex:
+        type: number
+        example: 3.0
+      DisplayName:
+        type: string
+        example: lineal feet
+  OrderItem:
+    type: object
+    properties:
+      OrderKey:
+        type: number
+        example: 20.0
+      ItemNumber:
+        type: number
+        example: 1.0
+      CustomerItemNumber:
+        type: string
+        example: "1"
+      CustomerJobNumber:
+        type: string
+      EdiChanges:
+        type: string
+        example: both
+      CycleCode:
+        type: string
+      ProductKey:
+        type: number
+        example: 2.0
+      CustomerMeasureTypeKey:
+        type: number
+        example: 7.0
+      CustomerQuantity:
+        type: number
+        example: 1500.0
+      MachineId:
+        type: string
+        example: "1"
+      EstimatedWeight:
+        type: number
+        example: 83.0
+      EstimatedLength:
+        type: number
+        example: 459.0
+      EstimatedNumberRolls:
+        type: number
+        example: 1.0
+      ShippingUnitTypeKey:
+        type: number
+        example: 3.0
+      EstimatedNumberShippingUnits:
+        type: number
+        example: 1.0
+      EstimatedNumberSheetsPerStack:
+        type: number
+      SheetStacksPerSkid:
+        type: number
+        example: 1.0
+      RollsPerStack:
+        type: number
+        example: 1.0
+      PalletHeight:
+        type: number
+        example: 0.0
+      RollWidth:
+        type: number
+        example: 558.8
+      RollDiameter:
+        type: number
+        example: 558.8
+      CoreKey:
+        type: number
+        example: 1.0
+      SheetWidth:
+        type: number
+      SheetLength:
+        type: number
+      SheetStackWeight:
+        type: number
+      ItemStatusKey:
+        type: number
+        example: 1.0
+      WindIn:
+        type: boolean
+        example: false
+      LastUpdateDate:
+        type: string
+        format: date-time
+      LastUpdateOperator:
+        type: string
+        example: ssmith
+      LastUpdateWorkstation:
+        type: string
+        example: Portal
+      User1:
+        type: string
+      CustomerProductName:
+        type: string
+      OrderItemDeliveries:
+        type: array
+        example: []
+        items:
+          type: string
+      Core:
+        $ref: '#/definitions/Core'
+      Machine:
+        $ref: '#/definitions/Machine'
+      MeasureType_CustomerMeasureTypeKey:
+        $ref: '#/definitions/MeasureType'
+      MeasureType_ShippingUnitTypeKey:
+        $ref: '#/definitions/MeasureType'
+      OrderItemStatusType:
+        $ref: '#/definitions/OrderItemStatusType'
+      Product:
+        $ref: '#/definitions/Product'
+    title: Order Item
+  OrderItemStatusType:
+    type: object
+    required:
+    - IsActive
+    - OrderItemStatusTypeKey
+    - OrderItemStatusType_
+    properties:
+      OrderItemStatusTypeKey:
+        type: number
+        example: 1.0
+      OrderItemStatusType_:
+        type: string
+        example: active
+      IsActive:
+        type: boolean
+        example: true
+  Order:
+    type: object
+    required:
+    - CreditStatusType
+    - CustomerOrderNumber
+    - FreightOnBoard
+    - FreightOnBoardKey
+    - FreightPaymentType
+    - FreightPaymentTypeKey
+    - InvoiceTo
+    - InvoiceToKey
+    - IsActive
+    - IsApproved
+    - LastUpdateDate
+    - LastUpdateOperator
+    - LastUpdateWorkstation
+    - MeasureSystem
+    - MeasureSystemKey
+    - OrderComments
+    - OrderDate
+    - OrderItems
+    - OrderKey
+    - OrderNumber
+    - OrderSalesMonth
+    - OrderType
+    - OrderTypeKey
+    - Salesman
+    - SalesmanKey
+    - ShipFromLocationKey
+    - ShipTo
+    - ShipToKey
+    - SoldTo
+    - SoldToKey
+    - Term
+    - TermsKey
+    properties:
+      OrderKey:
+        type: number
+        example: 20.0
+      OrderNumber:
+        type: string
+        example: "10002"
+      OrderDate:
+        type: string
+        format: date-time
+      OrderTypeKey:
+        type: number
+        example: 2.0
+      CustomerOrderNumber:
+        type: string
+        example: SSOrder11
+      SoldToKey:
+        type: number
+        example: 1.0
+      ShipToKey:
+        type: number
+        example: 1.0
+      FreightOnBoardKey:
+        type: number
+        example: 1.0
+      FreightPaymentTypeKey:
+        type: number
+        example: 2.0
+      InvoiceToKey:
+        type: number
+        example: 1.0
+      TermsKey:
+        type: number
+        example: 1.0
+      SalesmanKey:
+        type: number
+        example: 1.0
+      MeasureSystemKey:
+        type: number
+        example: 1.0
+      IsActive:
+        type: boolean
+        example: true
+      LastUpdateDate:
+        type: string
+        format: date-time
+      LastUpdateOperator:
+        type: string
+        example: ssmith
+      LastUpdateWorkstation:
+        type: string
+        example: Portal
+      ShipFromLocationKey:
+        type: number
+        example: 3.0
+      OrderSalesMonth:
+        type: string
+        format: date-time
+      IsApproved:
+        type: number
+        example: 0.0
+      OrderItems:
+        type: array
+        items:
+          $ref: '#/definitions/OrderItem'
+      OrderComments:
+        type: array
+        example: []
+        items:
+          type: string
+      CreditStatusType:
+        type: string
+      FreightOnBoard:
+        $ref: '#/definitions/FreightOnBoard'
+      FreightPaymentType:
+        $ref: '#/definitions/FreightPaymentType'
+      InvoiceTo:
+        $ref: '#/definitions/InvoiceTo'
+      MeasureSystem:
+        $ref: '#/definitions/MeasureSystem'
+      OrderType:
+        $ref: '#/definitions/OrderType'
+      Salesman:
+        $ref: '#/definitions/Salesman'
+      ShipTo:
+        $ref: '#/definitions/ShipTo'
+      SoldTo:
+        $ref: '#/definitions/SoldTo'
+      Term:
+        $ref: '#/definitions/PaymentTerm'
+    title: Order object
+  OrderType:
+    type: object
+    required:
+    - Description
+    - IsActive
+    - IsRegular
+    - OrderTypeKey
+    - OrderType_
+    properties:
+      OrderTypeKey:
+        type: number
+        example: 2.0
+      OrderType_:
+        type: string
+        example: regular
+      Description:
+        type: string
+        example: make and ship
+      IsActive:
+        type: boolean
+        example: true
+      IsRegular:
+        type: boolean
+        example: true
+  PaymentTerm:
+    type: object
+    required:
+    - Description
+    - DiscountDays
+    - DiscountPercent
+    - GraceDays
+    - IsActive
+    - TermsCode
+    - TermsKey
+    properties:
+      TermsKey:
+        type: number
+        example: 1.0
+      TermsCode:
+        type: string
+        example: "01"
+      Description:
+        type: string
+        example: 1% 10 DAYS-NET 15
+      DiscountPercent:
+        type: number
+        example: 1.0
+      DiscountDays:
+        type: number
+        example: 10.0
+      GraceDays:
+        type: string
+        example: "15"
+      IsActive:
+        type: boolean
+        example: true
+  Product:
+    type: object
+    required:
+    - BarterFactor
+    - EstWtTableEntryKey
+    - GradeKey
+    - IsActive
+    - IsAutoPrint
+    - LastUpdateDate
+    - LastUpdateOperator
+    - LastUpdateWorkstation
+    - ProductDescription
+    - ProductId
+    - ProductKey
+    properties:
+      ProductKey:
+        type: number
+        example: 2.0
+      ProductId:
+        type: string
+        example: 375 KB RÉG
+      ProductDescription:
+        type: string
+        example: 375 KRAFTBACK
+      GradeKey:
+        type: number
+        example: 2.0
+      BarterFactor:
+        type: number
+        example: 0.0
+      IsActive:
+        type: boolean
+        example: true
+      IsAutoPrint:
+        type: boolean
+        example: false
+      LastUpdateDate:
+        type: string
+        format: date-time
+      LastUpdateOperator:
+        type: string
+        example: shumateo
+      LastUpdateWorkstation:
+        type: string
+        example: Portal
+      EstWtTableEntryKey:
+        type: number
+        example: 130.0
+  Salesman:
+    type: object
+    required:
+    - IsActive
+    - LastUpdateDate
+    - LastUpdateOperator
+    - LastUpdateWorkstation
+    - SalesmanId
+    - SalesmanKey
+    - SalesmanName
+    - TerritoryKey
+    properties:
+      SalesmanKey:
+        type: number
+        example: 1.0
+      SalesmanId:
+        type: string
+        example: "000"
+      SalesmanName:
+        type: string
+        example: HOUSE
+      TerritoryKey:
+        type: number
+        example: 11.0
+      IsActive:
+        type: boolean
+        example: true
+      LastUpdateDate:
+        type: string
+        format: date-time
+      LastUpdateOperator:
+        type: string
+        example: mark
+      LastUpdateWorkstation:
+        type: string
+        example: Portal
+  ShipTo:
+    type: object
+    required:
+    - AppointmentTypeKey
+    - CanadaCustomsInvoiceKey
+    - ClampTruckCode
+    - Commission
+    - ContactName
+    - ContactPhone
+    - ContactUrl
+    - CorpArNumber
+    - CorporateAccount
+    - DaysToDeliver
+    - DefaultEmailAddress
+    - DestinationCountry
+    - DunsNumber
+    - EnglishAndMetricManifest
+    - FreightOnBoard
+    - FreightOnBoardKey
+    - FreightPaymentTypeKey
+    - InvoiceTo
+    - InvoiceToKey
+    - IsActive
+    - IsEdi
+    - LastUpdateDate
+    - LastUpdateOperator
+    - LastUpdateWorkstation
+    - LegalAddress1
+    - LegalAddress2
+    - LegalCity
+    - LegalCountry
+    - LegalPostalCode
+    - LegalState
+    - MilesToDeliver
+    - Name
+    - OneManifestPerInvoice
+    - OneOrderPerManifest
+    - ProductEndUse
+    - RailroadCarrier
+    - RollsPerPackOnLabel
+    - Salesman
+    - SalesmanKey
+    - ShipToId
+    - ShipToKey
+    - ShipToWarehouse
+    - ShortName
+    - SoldTo
+    - SoldToKey
+    - TaxId
+    - User1
+    - VehicleTypeKey
+    properties:
+      ShipToKey:
+        type: number
+        example: 1.0
+      ShipToId:
+        type: string
+        example: MILL
+      Name:
+        type: string
+        example: MILL
+      ShortName:
+        type: string
+        example: MILL
+      ContactPhone:
+        type: string
+        example: 123-456-7890
+      LegalAddress1:
+        type: string
+        example: 2 Rue Angus Nord
+      LegalAddress2:
+        type: string
+      LegalCity:
+        type: string
+        example: East Angus
+      LegalState:
+        type: string
+        example: QC
+      LegalPostalCode:
+        type: string
+        example: 1YR J0B
+      LegalCountry:
+        type: string
+        example: CA
+      DefaultEmailAddress:
+        type: string
+        format: email
+        example: justan@example.com
+      SoldToKey:
+        type: number
+        example: 1.0
+      InvoiceToKey:
+        type: number
+        example: 1.0
+      FreightOnBoardKey:
+        type: number
+        example: 1.0
+      FreightPaymentTypeKey:
+        type: number
+        example: 2.0
+      SalesmanKey:
+        type: number
+        example: 1.0
+      Commission:
+        type: number
+        example: 0.0
+      CorporateAccount:
+        type: boolean
+        example: false
+      CorpArNumber:
+        type: string
+      ProductEndUse:
+        type: string
+        example: INTERNAL
+      DestinationCountry:
+        type: string
+        example: CA
+      VehicleTypeKey:
+        type: number
+        example: 1.0
+      RailroadCarrier:
+        type: string
+      DaysToDeliver:
+        type: number
+        example: 0.0
+      MilesToDeliver:
+        type: number
+        example: 0.0
+      ShipToWarehouse:
+        type: boolean
+        example: false
+      ClampTruckCode:
+        type: string
+      RollsPerPackOnLabel:
+        type: boolean
+        example: false
+      OneOrderPerManifest:
+        type: boolean
+        example: false
+      EnglishAndMetricManifest:
+        type: boolean
+        example: false
+      IsActive:
+        type: boolean
+        example: true
+      IsEdi:
+        type: boolean
+        example: false
+      LastUpdateDate:
+        type: string
+        format: date-time
+      LastUpdateOperator:
+        type: string
+        example: mark
+      LastUpdateWorkstation:
+        type: string
+        example: Portal
+      User1:
+        type: string
+      ContactName:
+        type: string
+      ContactUrl:
+        type: string
+        format: uri
+      AppointmentTypeKey:
+        type: number
+      OneManifestPerInvoice:
+        type: boolean
+        example: false
+      TaxId:
+        type: string
+      CanadaCustomsInvoiceKey:
+        type: number
+      DunsNumber:
+        type: number
+      SoldTo:
+        $ref: '#/definitions/SoldTo'
+      InvoiceTo:
+        $ref: '#/definitions/InvoiceTo'
+      FreightOnBoard:
+        $ref: '#/definitions/FreightOnBoard'
+      Salesman:
+        $ref: '#/definitions/Salesman'
+  SoldTo:
+    type: object
+    required:
+    - BrokerFax
+    - BrokerName
+    - BrokerPhone
+    - ContactPhone
+    - ContractFlag
+    - CustomerTypeKey
+    - DefaultEmailAddress
+    - IsActive
+    - LastDivOrderNumber
+    - LastUpdateDate
+    - LastUpdateOperator
+    - LastUpdateWorkstation
+    - LegalAddress1
+    - LegalAddress2
+    - LegalCity
+    - LegalCountry
+    - LegalPostalCode
+    - LegalState
+    - Name
+    - OverRunPercent
+    - ShortName
+    - SoldToId
+    - SoldToKey
+    - UnderRunPercent
+    - User1
+    - User2
+    properties:
+      SoldToKey:
+        type: number
+        example: 1.0
+      SoldToId:
+        type: string
+        example: MILL
+      Name:
+        type: string
+        example: MILL
+      ShortName:
+        type: string
+        example: MILL
+      CustomerTypeKey:
+        type: number
+        example: 5.0
+      ContactPhone:
+        type: string
+        example: 123-456-7890
+      LegalAddress1:
+        type: string
+        example: 2 Rue Angus Nord
+      LegalAddress2:
+        type: string
+      LegalCity:
+        type: string
+        example: East Angus
+      LegalState:
+        type: string
+        example: QC
+      LegalPostalCode:
+        type: string
+        example: YR1 J0B
+      LegalCountry:
+        type: string
+        example: CA
+      DefaultEmailAddress:
+        type: string
+        format: email
+        example: justan@example.com
+      LastDivOrderNumber:
+        type: number
+      ContractFlag:
+        type: boolean
+        example: false
+      OverRunPercent:
+        type: number
+        example: 0.0
+      UnderRunPercent:
+        type: number
+        example: 0.0
+      IsActive:
+        type: boolean
+        example: true
+      LastUpdateDate:
+        type: string
+        format: date-time
+      LastUpdateOperator:
+        type: string
+        example: mark
+      LastUpdateWorkstation:
+        type: string
+        example: Portal
+      User1:
+        type: string
+      User2:
+        type: string
+      BrokerName:
+        type: string
+      BrokerPhone:
+        type: string
+      BrokerFax:
+        type: string
+x-components: {}
