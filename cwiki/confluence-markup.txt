@@ -1,0 +1,527 @@
+h1. Panther.Web.Api Panther Systems Web API
+
+*Version:* 0.1
+
+----
+
+{toc:printable=true|style=square|minLevel=2|maxLevel=3|type=list|outline=false|include=.*}
+
+h2. Endpoints
+
+    h3. apiCustomersGet
+    {status:colour=Yellow|title=get|subtle=false}
+    {code}
+    get /api/Customers
+    {code}
+    *Summary:* Gets list of acceptable customers
+    *Description:* 
+
+
+    h4. Parameters
+
+
+
+
+
+
+
+    h4. Responses
+        *Status Code:* 200
+        *Message:*     List of customers
+        {code:title=Response Type}
+array[ShipTo]
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "List of customers",
+  "schema" : {
+    "type" : "array",
+    "items" : {
+      "$ref" : "#/definitions/ShipTo"
+    }
+  }
+}
+        {code}
+        *Status Code:* 401
+        *Message:*     Unauthorized
+        {code:title=Response Type}
+
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "Unauthorized"
+}
+        {code}
+    ----
+
+    h3. apiCustomersShipToKeyGet
+    {status:colour=Yellow|title=get|subtle=false}
+    {code}
+    get /api/Customers/{ShipToKey}
+    {code}
+    *Summary:* Returns a Customer by ShipToKey.
+    *Description:* 
+
+
+    h4. Parameters
+        h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |shipToKey |The ShipToKey of the customer to return. |(/) | |  |
+
+
+
+
+
+
+
+
+    h4. Responses
+        *Status Code:* 200
+        *Message:*     A customer
+        {code:title=Response Type}
+ShipTo
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "A customer",
+  "schema" : {
+    "$ref" : "#/definitions/ShipTo"
+  }
+}
+        {code}
+        *Status Code:* 401
+        *Message:*     Unauthorized
+        {code:title=Response Type}
+
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "Unauthorized"
+}
+        {code}
+        *Status Code:* 404
+        *Message:*     Not Found
+        {code:title=Response Type}
+
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "Not Found"
+}
+        {code}
+    ----
+
+    h3. apiOrdersGet
+    {status:colour=Yellow|title=get|subtle=false}
+    {code}
+    get /api/Orders
+    {code}
+    *Summary:* Gets a list of all orders in the system
+    *Description:* 
+
+
+    h4. Parameters
+
+
+
+
+
+
+
+    h4. Responses
+        *Status Code:* 200
+        *Message:*     List of orders
+        {code:title=Response Type}
+array[Order]
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "List of orders",
+  "schema" : {
+    "type" : "array",
+    "items" : {
+      "$ref" : "#/definitions/Order"
+    }
+  }
+}
+        {code}
+        *Status Code:* 401
+        *Message:*     Unauthorized
+        {code:title=Response Type}
+
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "Unauthorized"
+}
+        {code}
+    ----
+
+    h3. apiOrdersOrderKeyGet
+    {status:colour=Yellow|title=get|subtle=false}
+    {code}
+    get /api/Orders/{orderKey}
+    {code}
+    *Summary:* Returns an order by Key.
+    *Description:* 
+
+
+    h4. Parameters
+        h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |orderKey | |(/) | |  |
+
+
+
+
+
+
+
+
+    h4. Responses
+        *Status Code:* 200
+        *Message:*     An order
+        {code:title=Response Type}
+Order
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "An order",
+  "schema" : {
+    "$ref" : "#/definitions/Order"
+  }
+}
+        {code}
+        *Status Code:* 401
+        *Message:*     Unauthorized
+        {code:title=Response Type}
+
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "Unauthorized"
+}
+        {code}
+        *Status Code:* 404
+        *Message:*     Not Found
+        {code:title=Response Type}
+
+        {code}
+        See [#models]
+
+
+
+        {code:title=Response Schema |collapse=true}
+{
+  "description" : "Not Found"
+}
+        {code}
+    ----
+
+h2. Models
+
+        h3. Core
+        ||Field Name||Required||Type||Description||
+         |CoreKey | |BigDecimal | |
+ |CoreCode | |String | |
+ |Description | |String | |
+ |CoreDiameter | |BigDecimal | |
+ |WeightFactor | |BigDecimal | |
+ |IsActive | |Boolean | |
+ |PlugWeight | |BigDecimal | |
+        h3. FreightOnBoard
+        ||Field Name||Required||Type||Description||
+         |FreightOnBoardKey | |BigDecimal | |
+ |FreightOnBoard_ | |String | |
+ |IsActive | |Boolean | |
+        h3. FreightPaymentType
+        ||Field Name||Required||Type||Description||
+         |FreightPaymentTypeKey | |BigDecimal | |
+ |FreightPaymentType_ | |String | |
+ |Description | |String | |
+ |IsActive | |Boolean | |
+ |IsPrepaid | |Boolean | |
+ |GenerateAccrual | |Boolean | |
+        h3. InvoiceTo
+        ||Field Name||Required||Type||Description||
+         |InvoiceToKey | |BigDecimal | |
+ |InvoiceToId | |String | |
+ |Name | |String | |
+ |ShortName | |String | |
+ |ContactPhone | |String | |
+ |LegalAddress1 | |String | |
+ |LegalAddress2 | |String | |
+ |LegalCity | |String | |
+ |LegalState | |String | |
+ |LegalPostalCode | |String | |
+ |LegalCountry | |String | |
+ |DefaultEmailAddress | |String | |
+ |RemitToKey | |BigDecimal | |
+ |CorporateArNumber | |String | |
+ |ArBalance | |BigDecimal | |
+ |CreditLimit | |BigDecimal | |
+ |TermsKey | |BigDecimal | |
+ |IsActive | |Boolean | |
+ |CustomerTypeKey | |BigDecimal | |
+ |LastUpdateDate | |Date | |
+ |LastUpdateOperator | |String | |
+ |LastUpdateWorkstation | |String | |
+ |CurrencyLabel | |String | |
+ |User1 | |String | |
+ |Term | |PaymentTerm | |
+        h3. Machine
+        ||Field Name||Required||Type||Description||
+         |MachineId | |String | |
+ |MachineTypeKey | |BigDecimal | |
+ |MachineDescription | |String | |
+ |SendsProductData | |Boolean | |
+ |IsActive | |Boolean | |
+        h3. MeasureSystem
+        ||Field Name||Required||Type||Description||
+         |MeasureSystemKey | |BigDecimal | |
+ |MeasureSystem_ | |String | |
+        h3. MeasureType
+        ||Field Name||Required||Type||Description||
+         |MeasureTypeKey | |BigDecimal | |
+ |MeasureType_ | |String | |
+ |ValidForCustomerUnit | |Boolean | |
+ |ValidForPrice | |Boolean | |
+ |ValidForShippingUnit | |Boolean | |
+ |ValidForInvoice | |Boolean | |
+ |IsEnglishMeasure | |Boolean | |
+ |IsActive | |Boolean | |
+ |MeasureTypeIndex | |BigDecimal | |
+ |DisplayName | |String | |
+        h3. Order
+        ||Field Name||Required||Type||Description||
+         |OrderKey | |BigDecimal | |
+ |OrderNumber | |String | |
+ |OrderDate | |Date | |
+ |OrderTypeKey | |BigDecimal | |
+ |CustomerOrderNumber | |String | |
+ |SoldToKey | |BigDecimal | |
+ |ShipToKey | |BigDecimal | |
+ |FreightOnBoardKey | |BigDecimal | |
+ |FreightPaymentTypeKey | |BigDecimal | |
+ |InvoiceToKey | |BigDecimal | |
+ |TermsKey | |BigDecimal | |
+ |SalesmanKey | |BigDecimal | |
+ |MeasureSystemKey | |BigDecimal | |
+ |IsActive | |Boolean | |
+ |LastUpdateDate | |Date | |
+ |LastUpdateOperator | |String | |
+ |LastUpdateWorkstation | |String | |
+ |ShipFromLocationKey | |BigDecimal | |
+ |OrderSalesMonth | |Date | |
+ |IsApproved | |BigDecimal | |
+ |OrderItems | |array[OrderItem] | |
+ |OrderComments | |array[String] | |
+ |CreditStatusType | |String | |
+ |FreightOnBoard | |FreightOnBoard | |
+ |FreightPaymentType | |FreightPaymentType | |
+ |InvoiceTo | |InvoiceTo | |
+ |MeasureSystem | |MeasureSystem | |
+ |OrderType | |OrderType | |
+ |Salesman | |Salesman | |
+ |ShipTo | |ShipTo | |
+ |SoldTo | |SoldTo | |
+ |Term | |PaymentTerm | |
+        h3. OrderItem
+        ||Field Name||Required||Type||Description||
+         |OrderKey | |BigDecimal | |
+ |ItemNumber | |BigDecimal | |
+ |CustomerItemNumber | |String | |
+ |CustomerJobNumber | |String | |
+ |EdiChanges | |String | |
+ |CycleCode | |String | |
+ |ProductKey | |BigDecimal | |
+ |CustomerMeasureTypeKey | |BigDecimal | |
+ |CustomerQuantity | |BigDecimal | |
+ |MachineId | |String | |
+ |EstimatedWeight | |BigDecimal | |
+ |EstimatedLength | |BigDecimal | |
+ |EstimatedNumberRolls | |BigDecimal | |
+ |ShippingUnitTypeKey | |BigDecimal | |
+ |EstimatedNumberShippingUnits | |BigDecimal | |
+ |EstimatedNumberSheetsPerStack | |BigDecimal | |
+ |SheetStacksPerSkid | |BigDecimal | |
+ |RollsPerStack | |BigDecimal | |
+ |PalletHeight | |BigDecimal | |
+ |RollWidth | |BigDecimal | |
+ |RollDiameter | |BigDecimal | |
+ |CoreKey | |BigDecimal | |
+ |SheetWidth | |BigDecimal | |
+ |SheetLength | |BigDecimal | |
+ |SheetStackWeight | |BigDecimal | |
+ |ItemStatusKey | |BigDecimal | |
+ |WindIn | |Boolean | |
+ |LastUpdateDate | |Date | |
+ |LastUpdateOperator | |String | |
+ |LastUpdateWorkstation | |String | |
+ |User1 | |String | |
+ |CustomerProductName | |String | |
+ |OrderItemDeliveries | |array[String] | |
+ |Core | |Core | |
+ |Machine | |Machine | |
+ |MeasureType_CustomerMeasureTypeKey | |MeasureType | |
+ |MeasureType_ShippingUnitTypeKey | |MeasureType | |
+ |OrderItemStatusType | |OrderItemStatusType | |
+ |Product | |Product | |
+        h3. OrderItemStatusType
+        ||Field Name||Required||Type||Description||
+         |OrderItemStatusTypeKey | |BigDecimal | |
+ |OrderItemStatusType_ | |String | |
+ |IsActive | |Boolean | |
+        h3. OrderType
+        ||Field Name||Required||Type||Description||
+         |OrderTypeKey | |BigDecimal | |
+ |OrderType_ | |String | |
+ |Description | |String | |
+ |IsActive | |Boolean | |
+ |IsRegular | |Boolean | |
+        h3. PaymentTerm
+        ||Field Name||Required||Type||Description||
+         |TermsKey | |BigDecimal | |
+ |TermsCode | |String | |
+ |Description | |String | |
+ |DiscountPercent | |BigDecimal | |
+ |DiscountDays | |BigDecimal | |
+ |GraceDays | |String | |
+ |IsActive | |Boolean | |
+        h3. Product
+        ||Field Name||Required||Type||Description||
+         |ProductKey | |BigDecimal | |
+ |ProductId | |String | |
+ |ProductDescription | |String | |
+ |GradeKey | |BigDecimal | |
+ |BarterFactor | |BigDecimal | |
+ |IsActive | |Boolean | |
+ |IsAutoPrint | |Boolean | |
+ |LastUpdateDate | |Date | |
+ |LastUpdateOperator | |String | |
+ |LastUpdateWorkstation | |String | |
+ |EstWtTableEntryKey | |BigDecimal | |
+        h3. Salesman
+        ||Field Name||Required||Type||Description||
+         |SalesmanKey | |BigDecimal | |
+ |SalesmanId | |String | |
+ |SalesmanName | |String | |
+ |TerritoryKey | |BigDecimal | |
+ |IsActive | |Boolean | |
+ |LastUpdateDate | |Date | |
+ |LastUpdateOperator | |String | |
+ |LastUpdateWorkstation | |String | |
+        h3. ShipTo
+        ||Field Name||Required||Type||Description||
+         |ShipToKey | |BigDecimal | |
+ |ShipToId | |String | |
+ |Name | |String | |
+ |ShortName | |String | |
+ |ContactPhone | |String | |
+ |LegalAddress1 | |String | |
+ |LegalAddress2 | |String | |
+ |LegalCity | |String | |
+ |LegalState | |String | |
+ |LegalPostalCode | |String | |
+ |LegalCountry | |String | |
+ |DefaultEmailAddress | |String | |
+ |SoldToKey | |BigDecimal | |
+ |InvoiceToKey | |BigDecimal | |
+ |FreightOnBoardKey | |BigDecimal | |
+ |FreightPaymentTypeKey | |BigDecimal | |
+ |SalesmanKey | |BigDecimal | |
+ |Commission | |BigDecimal | |
+ |CorporateAccount | |Boolean | |
+ |CorpArNumber | |String | |
+ |ProductEndUse | |String | |
+ |DestinationCountry | |String | |
+ |VehicleTypeKey | |BigDecimal | |
+ |RailroadCarrier | |String | |
+ |DaysToDeliver | |BigDecimal | |
+ |MilesToDeliver | |BigDecimal | |
+ |ShipToWarehouse | |Boolean | |
+ |ClampTruckCode | |String | |
+ |RollsPerPackOnLabel | |Boolean | |
+ |OneOrderPerManifest | |Boolean | |
+ |EnglishAndMetricManifest | |Boolean | |
+ |IsActive | |Boolean | |
+ |IsEdi | |Boolean | |
+ |LastUpdateDate | |Date | |
+ |LastUpdateOperator | |String | |
+ |LastUpdateWorkstation | |String | |
+ |User1 | |String | |
+ |ContactName | |String | |
+ |ContactUrl | |String | |
+ |AppointmentTypeKey | |BigDecimal | |
+ |OneManifestPerInvoice | |Boolean | |
+ |TaxId | |String | |
+ |CanadaCustomsInvoiceKey | |BigDecimal | |
+ |DunsNumber | |BigDecimal | |
+ |SoldTo | |SoldTo | |
+ |InvoiceTo | |InvoiceTo | |
+ |FreightOnBoard | |FreightOnBoard | |
+ |Salesman | |Salesman | |
+        h3. SoldTo
+        ||Field Name||Required||Type||Description||
+         |SoldToKey | |BigDecimal | |
+ |SoldToId | |String | |
+ |Name | |String | |
+ |ShortName | |String | |
+ |CustomerTypeKey | |BigDecimal | |
+ |ContactPhone | |String | |
+ |LegalAddress1 | |String | |
+ |LegalAddress2 | |String | |
+ |LegalCity | |String | |
+ |LegalState | |String | |
+ |LegalPostalCode | |String | |
+ |LegalCountry | |String | |
+ |DefaultEmailAddress | |String | |
+ |LastDivOrderNumber | |BigDecimal | |
+ |ContractFlag | |Boolean | |
+ |OverRunPercent | |BigDecimal | |
+ |UnderRunPercent | |BigDecimal | |
+ |IsActive | |Boolean | |
+ |LastUpdateDate | |Date | |
+ |LastUpdateOperator | |String | |
+ |LastUpdateWorkstation | |String | |
+ |User1 | |String | |
+ |User2 | |String | |
+ |BrokerName | |String | |
+ |BrokerPhone | |String | |
+ |BrokerFax | |String | |
