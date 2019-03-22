@@ -26,6 +26,12 @@ paths:
               $ref: '#/definitions/Order'
         401:
           description: Unauthorized
+    post:
+      summary: Creates a new order
+      parameters: []
+      responses:
+        200:
+          description: OK
   /api/Orders/{orderKey}:
     get:
       tags:
