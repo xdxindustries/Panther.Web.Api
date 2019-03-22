@@ -96,8 +96,8 @@ definitions:
     - WeightFactor
     properties:
       CoreKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       CoreCode:
         type: string
         example: 305mm
@@ -106,6 +106,7 @@ definitions:
         example: 305mm
       CoreDiameter:
         type: number
+        format: decimal
         example: 304.8
       WeightFactor:
         type: number
@@ -124,8 +125,8 @@ definitions:
     - IsActive
     properties:
       FreightOnBoardKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       FreightOnBoard_:
         type: string
         example: origin
@@ -143,8 +144,8 @@ definitions:
     - IsPrepaid
     properties:
       FreightPaymentTypeKey:
-        type: number
-        example: 2.0
+        type: integer
+        example: 2
       FreightPaymentType_:
         type: string
         example: prepaid
@@ -301,8 +302,8 @@ definitions:
         type: string
         example: "1"
       MachineTypeKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       MachineDescription:
         type: string
         example: Machine à Papier 1
@@ -593,8 +594,8 @@ definitions:
     - ValidForShippingUnit
     properties:
       MeasureTypeKey:
-        type: number
-        example: 7.0
+        type: integer
+        example: 7
       MeasureType_:
         type: string
         example: lineal feet
@@ -828,8 +829,8 @@ definitions:
     - OrderItemStatusType_
     properties:
       OrderItemStatusTypeKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       OrderItemStatusType_:
         type: string
         example: active
@@ -1020,8 +1021,8 @@ definitions:
     - TermsKey
     properties:
       TermsKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       TermsCode:
         type: string
         example: "01"
@@ -1056,8 +1057,8 @@ definitions:
     - ProductKey
     properties:
       ProductKey:
-        type: number
-        example: 2.0
+        type: integer
+        example: 2
       ProductId:
         type: string
         example: 375 KB RÉG
@@ -1065,8 +1066,8 @@ definitions:
         type: string
         example: 375 KRAFTBACK
       GradeKey:
-        type: number
-        example: 2.0
+        type: integer
+        example: 2
       BarterFactor:
         type: number
         example: 0.0
@@ -1086,8 +1087,8 @@ definitions:
         type: string
         example: Portal
       EstWtTableEntryKey:
-        type: number
-        example: 130.0
+        type: integer
+        example: 130
   Salesman:
     type: object
     required:
@@ -1101,8 +1102,8 @@ definitions:
     - TerritoryKey
     properties:
       SalesmanKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       SalesmanId:
         type: string
         example: "000"
@@ -1110,8 +1111,8 @@ definitions:
         type: string
         example: HOUSE
       TerritoryKey:
-        type: number
-        example: 11.0
+        type: integer
+        example: 11
       IsActive:
         type: boolean
         example: true
