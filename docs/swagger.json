@@ -4,8 +4,27 @@ info:
   description: Panther Systems Web API
   version: "0.1"
   title: Panther.Web.Api
+  contact:
+    name: Steve Smith
+    email: ssmith@panthersys.com
 host: virtserver.swaggerhub.com
 basePath: /xdxindustries/Panther.Web.Api/0.1
+tags:
+- name: Orders
+  description: A order for the mill
+  externalDocs:
+    description: tbd documenation at
+    url: http://panthersys.com
+- name: Customers
+  description: Customers who buy orders
+  externalDocs:
+    description: tbd documenation at
+    url: http://panthersys.com
+- name: Shipments
+  description: Shipments of orders
+  externalDocs:
+    description: tbd documenation at
+    url: http://panthersys.com
 schemes:
 - https
 security:
@@ -27,8 +46,18 @@ paths:
         401:
           description: Unauthorized
     post:
+      tags:
+      - Orders
       summary: Creates a new order
-      parameters: []
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: The serialized JSON of the order to create
+        required: true
+        schema:
+          $ref: '#/definitions/Order'
       responses:
         200:
           description: OK
@@ -629,8 +658,134 @@ definitions:
       DisplayName:
         type: string
         example: lineal feet
+  Order:
+    type: object
+    required:
+    - FreightOnBoardKey
+    - InvoiceToKey
+    - OrderDate
+    - OrderNumber
+    - OrderTypeKey
+    - SalesmanKey
+    - ShipToKey
+    - SoldToKey
+    - TermsKey
+    properties:
+      OrderKey:
+        type: integer
+        example: 20
+      OrderNumber:
+        type: string
+        example: "10002"
+        maxLength: 20
+      OrderDate:
+        type: string
+        format: date-time
+      OrderTypeKey:
+        type: integer
+        example: 2
+      CustomerOrderNumber:
+        type: string
+        example: SSOrder11
+        maxLength: 20
+      SoldToKey:
+        type: integer
+        example: 1
+      ShipToKey:
+        type: integer
+        example: 1
+      FreightOnBoardKey:
+        type: integer
+        example: 1
+      FreightPaymentTypeKey:
+        type: integer
+        example: 2
+      InvoiceToKey:
+        type: integer
+        example: 1
+      TermsKey:
+        type: integer
+        example: 1
+      SalesmanKey:
+        type: integer
+        example: 1
+      MeasureSystemKey:
+        type: integer
+        example: 1
+      IsActive:
+        type: boolean
+        example: true
+      CreditStatusTypeKey:
+        type: integer
+      LastUpdateDate:
+        type: string
+        format: date-time
+      LastUpdateOperator:
+        type: string
+        example: ssmith
+        maxLength: 20
+      LastUpdateWorkstation:
+        type: string
+        example: Portal
+        maxLength: 30
+      ShipFromLocationKey:
+        type: integer
+        example: 3
+      OrderSalesMonth:
+        type: string
+        format: date-time
+      IsApproved:
+        type: integer
+        example: 0
+      ApprovedDate:
+        type: string
+        format: date-time
+      ApprovedBy:
+        type: string
+        maxLength: 100
+      ShipToWarehouseKey:
+        type: integer
+      ExternalOrderNumber:
+        type: string
+        maxLength: 10
+      OrderItems:
+        type: array
+        items:
+          $ref: '#/definitions/OrderItem'
+      OrderComments:
+        type: array
+        example: []
+        items:
+          type: string
+      CreditStatusType:
+        type: string
+      FreightOnBoard:
+        $ref: '#/definitions/FreightOnBoard'
+      FreightPaymentType:
+        $ref: '#/definitions/FreightPaymentType'
+      InvoiceTo:
+        $ref: '#/definitions/InvoiceTo'
+      MeasureSystem:
+        $ref: '#/definitions/MeasureSystem'
+      OrderType:
+        $ref: '#/definitions/OrderType'
+      Salesman:
+        $ref: '#/definitions/Salesman'
+      ShipTo:
+        $ref: '#/definitions/ShipTo'
+      SoldTo:
+        $ref: '#/definitions/SoldTo'
+      Term:
+        $ref: '#/definitions/PaymentTerm'
+    title: Order
   OrderItem:
     type: object
+    required:
+    - CustomerMeasureTypeKey
+    - CustomerQuantity
+    - ItemNumber
+    - OrderItemDeliveries
+    - ShippingUnitTypeKey
     properties:
       OrderKey:
         type: integer
@@ -758,6 +913,12 @@ definitions:
     title: Order Item
   OrderItemDelivery:
     type: object
+    required:
+    - DeliveryNumber
+    - ItemNumber
+    - PriceQuoteDate
+    - UnitPrice
+    - UnitPriceMill
     properties:
       OrderKey:
         type: integer
@@ -843,154 +1004,6 @@ definitions:
       IsActive:
         type: boolean
         example: true
-  Order:
-    type: object
-    required:
-    - ApprovedBy
-    - ApprovedDate
-    - CreditStatusType
-    - CreditStatusTypeKey
-    - CustomerOrderNumber
-    - ExternalOrderNumber
-    - FreightOnBoard
-    - FreightOnBoardKey
-    - FreightPaymentType
-    - FreightPaymentTypeKey
-    - InvoiceTo
-    - InvoiceToKey
-    - IsActive
-    - IsApproved
-    - LastUpdateDate
-    - LastUpdateOperator
-    - LastUpdateWorkstation
-    - MeasureSystem
-    - MeasureSystemKey
-    - OrderComments
-    - OrderDate
-    - OrderItems
-    - OrderKey
-    - OrderNumber
-    - OrderSalesMonth
-    - OrderType
-    - OrderTypeKey
-    - Salesman
-    - SalesmanKey
-    - ShipFromLocationKey
-    - ShipTo
-    - ShipToKey
-    - ShipToWarehouseKey
-    - SoldTo
-    - SoldToKey
-    - Term
-    - TermsKey
-    properties:
-      OrderKey:
-        type: integer
-        example: 20
-      OrderNumber:
-        type: string
-        example: "10002"
-        maxLength: 20
-      OrderDate:
-        type: string
-        format: date-time
-      OrderTypeKey:
-        type: integer
-        example: 2
-      CustomerOrderNumber:
-        type: string
-        example: SSOrder11
-        maxLength: 20
-      SoldToKey:
-        type: integer
-        example: 1
-      ShipToKey:
-        type: integer
-        example: 1
-      FreightOnBoardKey:
-        type: integer
-        example: 1
-      FreightPaymentTypeKey:
-        type: integer
-        example: 2
-      InvoiceToKey:
-        type: integer
-        example: 1
-      TermsKey:
-        type: integer
-        example: 1
-      SalesmanKey:
-        type: integer
-        example: 1
-      MeasureSystemKey:
-        type: integer
-        example: 1
-      IsActive:
-        type: boolean
-        example: true
-      CreditStatusTypeKey:
-        type: integer
-      LastUpdateDate:
-        type: string
-        format: date-time
-      LastUpdateOperator:
-        type: string
-        example: ssmith
-        maxLength: 20
-      LastUpdateWorkstation:
-        type: string
-        example: Portal
-        maxLength: 30
-      ShipFromLocationKey:
-        type: integer
-        example: 3
-      OrderSalesMonth:
-        type: string
-        format: date-time
-      IsApproved:
-        type: integer
-        example: 0
-      ApprovedDate:
-        type: string
-        format: date-time
-      ApprovedBy:
-        type: string
-        maxLength: 100
-      ShipToWarehouseKey:
-        type: integer
-      ExternalOrderNumber:
-        type: string
-        maxLength: 10
-      OrderItems:
-        type: array
-        items:
-          $ref: '#/definitions/OrderItem'
-      OrderComments:
-        type: array
-        example: []
-        items:
-          type: string
-      CreditStatusType:
-        type: string
-      FreightOnBoard:
-        $ref: '#/definitions/FreightOnBoard'
-      FreightPaymentType:
-        $ref: '#/definitions/FreightPaymentType'
-      InvoiceTo:
-        $ref: '#/definitions/InvoiceTo'
-      MeasureSystem:
-        $ref: '#/definitions/MeasureSystem'
-      OrderType:
-        $ref: '#/definitions/OrderType'
-      Salesman:
-        $ref: '#/definitions/Salesman'
-      ShipTo:
-        $ref: '#/definitions/ShipTo'
-      SoldTo:
-        $ref: '#/definitions/SoldTo'
-      Term:
-        $ref: '#/definitions/PaymentTerm'
-    title: Order
   OrderType:
     type: object
     required:
