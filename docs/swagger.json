@@ -190,74 +190,102 @@ definitions:
     - User1
     properties:
       InvoiceToKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       InvoiceToId:
         type: string
         example: MILL
+        maxLength: 40
       Name:
         type: string
         example: MILL
+        maxLength: 60
       ShortName:
         type: string
         example: MILL
+        maxLength: 20
       ContactPhone:
         type: string
         example: 123-456-7890
+        maxLength: 20
       LegalAddress1:
         type: string
         example: 2 Rue Angus Nord
+        maxLength: 60
       LegalAddress2:
         type: string
+        maxLength: 60
       LegalCity:
         type: string
         example: East Angus
+        maxLength: 60
       LegalState:
         type: string
         example: QC
+        maxLength: 20
       LegalPostalCode:
         type: string
         example: YR1 J0B
+        maxLength: 20
       LegalCountry:
         type: string
         example: CA
+        maxLength: 60
       DefaultEmailAddress:
         type: string
         format: email
         example: justan@example.com
+        maxLength: 80
       RemitToKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       CorporateArNumber:
         type: string
+        maxLength: 20
       ArBalance:
         type: number
+        format: decimal
         example: 0.0
       CreditLimit:
         type: number
+        format: decimal
         example: 0.0
       TermsKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       IsActive:
         type: boolean
         example: true
       CustomerTypeKey:
-        type: number
-        example: 5.0
+        type: integer
+        example: 5
       LastUpdateDate:
         type: string
         format: date-time
       LastUpdateOperator:
         type: string
         example: mark
+        maxLength: 20
       LastUpdateWorkstation:
         type: string
         example: Portal
+        maxLength: 30
       CurrencyLabel:
         type: string
+        maxLength: 50
       User1:
         type: string
+        maxLength: 100
+      SalesmanKey:
+        type: integer
+      CurrencyKey:
+        type: integer
+      LocaleId:
+        type: string
+        maxLength: 10
+      MeasureSystemKey:
+        type: integer
+        example: 1
       Term:
         $ref: '#/definitions/PaymentTerm'
   Machine:
@@ -291,8 +319,8 @@ definitions:
     - MeasureSystem_
     properties:
       MeasureSystemKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       MeasureSystem_:
         type: string
         example: english
