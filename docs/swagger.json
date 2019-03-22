@@ -415,6 +415,7 @@ definitions:
         type: integer
       ProductId:
         type: string
+        maxLength: 80
       NumRolls:
         type: integer
       Gross:
@@ -557,6 +558,14 @@ definitions:
         type: integer
       LoadTareWt:
         type: integer
+      ManifestPrintComment:
+        $ref: '#/definitions/ManifestPrintComment'
+      ManifestPrintDetails:
+        type: array
+        items:
+          $ref: '#/definitions/ManifestPrintDetail'
+      Manifest:
+        $ref: '#/definitions/Manifest'
   MeasureSystem:
     type: object
     required:
