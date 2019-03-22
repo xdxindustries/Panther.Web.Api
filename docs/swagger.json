@@ -131,6 +131,21 @@ paths:
           description: Unauthorized
         404:
           description: Not Found
+  /api/Shipments:
+    get:
+      tags:
+      - Shipments
+      summary: Gets list of shipments
+      parameters: []
+      responses:
+        200:
+          description: List of Shipments
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Manifest'
+        401:
+          description: Unauthorized
 securityDefinitions:
   basicAuth:
     type: basic
