@@ -312,6 +312,251 @@ definitions:
       IsActive:
         type: boolean
         example: true
+  Manifest:
+    type: object
+    properties:
+      ManifestKey:
+        type: integer
+      ManifestNumber:
+        type: string
+        maxLength: 20
+      Void:
+        type: boolean
+        example: false
+      VoidDate:
+        type: string
+        format: date-time
+      Billable:
+        type: boolean
+        example: true
+      ShipToKey:
+        type: integer
+      ManifestDate:
+        type: string
+        format: date-time
+      DeliveryDate:
+        type: string
+        format: date-time
+      PrintCounter:
+        type: integer
+      NonBillableDone:
+        type: boolean
+        example: false
+      IsJockeyed:
+        type: boolean
+        example: true
+      IsTransmitted:
+        type: boolean
+        example: true
+      DropNumber:
+        type: integer
+      ProductionDateManifest:
+        type: string
+        format: date-time
+      ShiftIdManifest:
+        type: integer
+      ManifestVoidReasonKey:
+        type: integer
+      ReplacesManifestKey:
+        type: integer
+      IsReject:
+        type: string
+        format: byte
+        pattern: ^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$
+      TransmitDate:
+        type: string
+        format: date-time
+      VehicleMismatchReasonKey:
+        type: integer
+      VehicleReadyTime:
+        type: string
+        format: date-time
+      ActualDeliveryDate:
+        type: string
+        format: date-time
+      ShipFromLocationKey:
+        type: integer
+      LoadKey:
+        type: integer
+      ManifestPrintHeader:
+        $ref: '#/definitions/ManifestPrintHeader'
+  ManifestPrintComment:
+    type: object
+    properties:
+      ManifestKey:
+        type: integer
+      ShipComments:
+        type: string
+        maxLength: 1000
+      ExportComments:
+        type: string
+        maxLength: 1000
+      AdditionalComments:
+        type: string
+        maxLength: 255
+      DefaultComments:
+        type: string
+        maxLength: 255
+  ManifestPrintDetail:
+    type: object
+    properties:
+      ManifestKey:
+        type: integer
+      ShippingUnitId:
+        type: string
+        maxLength: 20
+      PoNumber:
+        type: string
+        maxLength: 20
+      OrderNumber:
+        type: string
+        maxLength: 20
+      ItemNumber:
+        type: integer
+      ProductId:
+        type: string
+      NumRolls:
+        type: integer
+      Gross:
+        type: integer
+      Tare:
+        type: integer
+      Net:
+        type: integer
+      Caliper:
+        type: number
+        format: decimal
+      Width:
+        type: number
+        format: decimal
+      Diameter:
+        type: number
+        format: decimal
+      Length:
+        type: number
+        format: decimal
+      NumSheets:
+        type: integer
+      UnitType:
+        type: string
+        maxLength: 20
+      DeliveryPoNumber:
+        type: string
+        maxLength: 20
+  ManifestPrintHeader:
+    type: object
+    properties:
+      ManifestKey:
+        type: integer
+      ManifestDate:
+        type: string
+        format: date-time
+      SiteName:
+        type: string
+        maxLength: 50
+      SiteAddress1:
+        type: string
+        maxLength: 60
+      SiteAddress2:
+        type: string
+        maxLength: 60
+      SiteCity:
+        type: string
+        maxLength: 60
+      SiteState:
+        type: string
+        maxLength: 20
+      SiteZip:
+        type: string
+        maxLength: 20
+      SoldToName:
+        type: string
+        maxLength: 50
+      SoldToAddress1:
+        type: string
+        maxLength: 60
+      SoldToAddress2:
+        type: string
+        maxLength: 60
+      SoldToCity:
+        type: string
+        maxLength: 60
+      SoldToState:
+        type: string
+        maxLength: 20
+      SoldToZip:
+        type: string
+        maxLength: 20
+      SoldToCountry:
+        type: string
+        maxLength: 60
+      ShipToName:
+        type: string
+        maxLength: 50
+      ShipToAddress1:
+        type: string
+        maxLength: 60
+      ShipToAddress2:
+        type: string
+        maxLength: 60
+      ShipToCity:
+        type: string
+        maxLength: 60
+      ShipToState:
+        type: string
+        maxLength: 20
+      ShipToZip:
+        type: string
+        maxLength: 20
+      ShipToCountry:
+        type: string
+        maxLength: 60
+      CarrierId:
+        type: string
+        maxLength: 40
+      VehicleId:
+        type: string
+        maxLength: 20
+      VehicleType:
+        type: string
+        maxLength: 30
+      FreightOnBoard:
+        type: string
+        maxLength: 20
+      Description:
+        type: string
+        maxLength: 80
+      PrepaidCollect:
+        type: string
+        maxLength: 20
+      SealNum:
+        type: string
+        maxLength: 20
+      UnitOfMeasure:
+        type: string
+        maxLength: 10
+      LoadId:
+        type: string
+        maxLength: 10
+      SoldToId:
+        type: string
+        maxLength: 40
+      ShipToId:
+        type: string
+        maxLength: 40
+      SiteCompanyName:
+        type: string
+        maxLength: 50
+      ReferenceNumber:
+        type: string
+        maxLength: 30
+      CustomerShipmentId:
+        type: string
+        maxLength: 20
+      LoadDunnageWt:
+        type: integer
+      LoadTareWt:
+        type: integer
   MeasureSystem:
     type: object
     required:
@@ -372,77 +617,90 @@ definitions:
     type: object
     properties:
       OrderKey:
-        type: number
-        example: 20.0
+        type: integer
+        example: 20
       ItemNumber:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       CustomerItemNumber:
         type: string
         example: "1"
+        maxLength: 20
       CustomerJobNumber:
         type: string
+        maxLength: 20
       EdiChanges:
         type: string
         example: both
+        maxLength: 20
       CycleCode:
         type: string
+        maxLength: 20
       ProductKey:
-        type: number
-        example: 2.0
+        type: integer
+        example: 2
       CustomerMeasureTypeKey:
-        type: number
-        example: 7.0
+        type: integer
+        example: 7
       CustomerQuantity:
         type: number
+        format: decimal
         example: 1500.0
       MachineId:
         type: string
         example: "1"
+        maxLength: 1
       EstimatedWeight:
-        type: number
-        example: 83.0
+        type: integer
+        example: 83
       EstimatedLength:
-        type: number
-        example: 459.0
+        type: integer
+        example: 459
       EstimatedNumberRolls:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
+      EstimatedNumberSheetStacks:
+        type: integer
       ShippingUnitTypeKey:
-        type: number
-        example: 3.0
+        type: integer
+        example: 3
       EstimatedNumberShippingUnits:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       EstimatedNumberSheetsPerStack:
-        type: number
+        type: integer
       SheetStacksPerSkid:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       RollsPerStack:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       PalletHeight:
         type: number
+        format: decimal
         example: 0.0
       RollWidth:
         type: number
+        format: decimal
         example: 558.8
       RollDiameter:
         type: number
+        format: decimal
         example: 558.8
       CoreKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       SheetWidth:
         type: number
+        format: decimal
       SheetLength:
         type: number
+        format: decimal
       SheetStackWeight:
-        type: number
+        type: integer
       ItemStatusKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       WindIn:
         type: boolean
         example: false
@@ -452,18 +710,23 @@ definitions:
       LastUpdateOperator:
         type: string
         example: ssmith
+        maxLength: 20
       LastUpdateWorkstation:
         type: string
         example: Portal
+        maxLength: 30
       User1:
         type: string
+        maxLength: 255
       CustomerProductName:
+        type: string
+        maxLength: 80
+      ItemComment:
         type: string
       OrderItemDeliveries:
         type: array
-        example: []
         items:
-          type: string
+          $ref: '#/definitions/OrderItemDelivery'
       Core:
         $ref: '#/definitions/Core'
       Machine:
@@ -477,6 +740,77 @@ definitions:
       Product:
         $ref: '#/definitions/Product'
     title: Order Item
+  OrderItemDelivery:
+    type: object
+    properties:
+      OrderKey:
+        type: integer
+      ItemNumber:
+        type: integer
+      DeliveryNumber:
+        type: integer
+      CustomerDeliveryQuantity:
+        type: number
+        format: decimal
+      IsDelivered:
+        type: boolean
+        example: false
+      SheetingDate:
+        type: string
+        format: date-time
+      EstimatedShipDate:
+        type: string
+        format: date-time
+      CustomerDeliveryDate:
+        type: string
+        format: date-time
+      VehicleTypeKey:
+        type: integer
+      DeliveryNotes:
+        type: string
+        maxLength: 255
+      UnitPrice:
+        type: number
+        format: decimal
+      PricingMeasureTypeKey:
+        type: integer
+      ShipToKey:
+        type: integer
+      InvoiceToKey:
+        type: integer
+      PriceQuoteDate:
+        type: string
+        format: date-time
+      RebateTypeKey:
+        type: integer
+      RebateRate:
+        type: number
+        format: decimal
+      OrderRebateDate:
+        type: string
+        format: date-time
+      LastUpdateDate:
+        type: string
+        format: date-time
+      LastUpdateOperator:
+        type: string
+        maxLength: 20
+      LastUpdateWorkstation:
+        type: string
+        maxLength: 30
+      DeliveryPoNumber:
+        type: string
+        maxLength: 20
+      ExcessFreightRate:
+        type: number
+        format: decimal
+      PricingMeasureTypeMillKey:
+        type: integer
+      UnitPriceMill:
+        type: number
+        format: decimal
+      LockedVehicleType:
+        type: integer
   OrderItemStatusType:
     type: object
     required:
@@ -496,8 +830,12 @@ definitions:
   Order:
     type: object
     required:
+    - ApprovedBy
+    - ApprovedDate
     - CreditStatusType
+    - CreditStatusTypeKey
     - CustomerOrderNumber
+    - ExternalOrderNumber
     - FreightOnBoard
     - FreightOnBoardKey
     - FreightPaymentType
@@ -524,71 +862,89 @@ definitions:
     - ShipFromLocationKey
     - ShipTo
     - ShipToKey
+    - ShipToWarehouseKey
     - SoldTo
     - SoldToKey
     - Term
     - TermsKey
     properties:
       OrderKey:
-        type: number
-        example: 20.0
+        type: integer
+        example: 20
       OrderNumber:
         type: string
         example: "10002"
+        maxLength: 20
       OrderDate:
         type: string
         format: date-time
       OrderTypeKey:
-        type: number
-        example: 2.0
+        type: integer
+        example: 2
       CustomerOrderNumber:
         type: string
         example: SSOrder11
+        maxLength: 20
       SoldToKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       ShipToKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       FreightOnBoardKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       FreightPaymentTypeKey:
-        type: number
-        example: 2.0
+        type: integer
+        example: 2
       InvoiceToKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       TermsKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       SalesmanKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       MeasureSystemKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       IsActive:
         type: boolean
         example: true
+      CreditStatusTypeKey:
+        type: integer
       LastUpdateDate:
         type: string
         format: date-time
       LastUpdateOperator:
         type: string
         example: ssmith
+        maxLength: 20
       LastUpdateWorkstation:
         type: string
         example: Portal
+        maxLength: 30
       ShipFromLocationKey:
-        type: number
-        example: 3.0
+        type: integer
+        example: 3
       OrderSalesMonth:
         type: string
         format: date-time
       IsApproved:
-        type: number
-        example: 0.0
+        type: integer
+        example: 0
+      ApprovedDate:
+        type: string
+        format: date-time
+      ApprovedBy:
+        type: string
+        maxLength: 100
+      ShipToWarehouseKey:
+        type: integer
+      ExternalOrderNumber:
+        type: string
+        maxLength: 10
       OrderItems:
         type: array
         items:
@@ -618,7 +974,7 @@ definitions:
         $ref: '#/definitions/SoldTo'
       Term:
         $ref: '#/definitions/PaymentTerm'
-    title: Order object
+    title: Order
   OrderType:
     type: object
     required:
