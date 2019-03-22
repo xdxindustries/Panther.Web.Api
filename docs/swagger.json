@@ -976,55 +976,67 @@ definitions:
     - User2
     properties:
       SoldToKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       SoldToId:
         type: string
         example: MILL
+        maxLength: 40
       Name:
         type: string
         example: MILL
+        maxLength: 60
       ShortName:
         type: string
         example: MILL
+        maxLength: 20
       CustomerTypeKey:
-        type: number
-        example: 5.0
+        type: integer
+        example: 5
       ContactPhone:
         type: string
         example: 123-456-7890
+        maxLength: 20
       LegalAddress1:
         type: string
         example: 2 Rue Angus Nord
+        maxLength: 60
       LegalAddress2:
         type: string
+        maxLength: 60
       LegalCity:
         type: string
         example: East Angus
+        maxLength: 60
       LegalState:
         type: string
         example: QC
+        maxLength: 20
       LegalPostalCode:
         type: string
         example: YR1 J0B
+        maxLength: 20
       LegalCountry:
         type: string
         example: CA
+        maxLength: 60
       DefaultEmailAddress:
         type: string
         format: email
         example: justan@example.com
+        maxLength: 80
       LastDivOrderNumber:
-        type: number
+        type: string
+        maxLength: 10
       ContractFlag:
         type: boolean
         example: false
       OverRunPercent:
-        type: number
-        example: 0.0
+        type: integer
+        example: 0
       UnderRunPercent:
-        type: number
-        example: 0.0
+        type: integer
+        example: 0
       IsActive:
         type: boolean
         example: true
@@ -1034,17 +1046,34 @@ definitions:
       LastUpdateOperator:
         type: string
         example: mark
+        maxLength: 20
       LastUpdateWorkstation:
         type: string
         example: Portal
+        maxLength: 30
       User1:
         type: string
+        maxLength: 100
       User2:
         type: string
+        maxLength: 100
       BrokerName:
         type: string
+        maxLength: 100
       BrokerPhone:
         type: string
+        maxLength: 20
       BrokerFax:
         type: string
+        maxLength: 20
+      LegalAddress3:
+        type: string
+        maxLength: 60
+      CurrencyKey:
+        type: integer
+      LocaleId:
+        type: string
+        maxLength: 10
+      MeasureSystemKey:
+        type: integer
 x-components: {}
