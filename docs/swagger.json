@@ -95,6 +95,22 @@ paths:
               $ref: '#/definitions/ShipTo'
         401:
           description: Unauthorized
+    post:
+      tags:
+      - Customers
+      summary: Creates a new customer
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: The serialized JSON of the customer to create
+        required: true
+        schema:
+          $ref: '#/definitions/ShipTo'
+      responses:
+        200:
+          description: OK
   /api/Customers/{ShipToKey}:
     get:
       tags:
@@ -199,31 +215,9 @@ definitions:
   InvoiceTo:
     type: object
     required:
-    - ArBalance
-    - ContactPhone
     - CorporateArNumber
-    - CreditLimit
-    - CurrencyLabel
-    - CustomerTypeKey
-    - DefaultEmailAddress
     - InvoiceToId
-    - InvoiceToKey
-    - IsActive
-    - LastUpdateDate
-    - LastUpdateOperator
-    - LastUpdateWorkstation
-    - LegalAddress1
-    - LegalAddress2
-    - LegalCity
-    - LegalCountry
-    - LegalPostalCode
-    - LegalState
     - Name
-    - RemitToKey
-    - ShortName
-    - Term
-    - TermsKey
-    - User1
     properties:
       InvoiceToKey:
         type: integer
@@ -1147,54 +1141,17 @@ definitions:
   ShipTo:
     type: object
     required:
-    - AppointmentTypeKey
-    - CanadaCustomsInvoiceKey
-    - ClampTruckCode
-    - Commission
-    - ContactName
-    - ContactPhone
-    - ContactUrl
-    - CorpArNumber
-    - CorporateAccount
-    - DaysToDeliver
-    - DefaultEmailAddress
-    - DestinationCountry
-    - DunsNumber
-    - EnglishAndMetricManifest
-    - FreightOnBoard
-    - FreightOnBoardKey
     - FreightPaymentTypeKey
     - InvoiceTo
-    - InvoiceToKey
-    - IsActive
-    - IsEdi
-    - LastUpdateDate
-    - LastUpdateOperator
-    - LastUpdateWorkstation
     - LegalAddress1
-    - LegalAddress2
     - LegalCity
     - LegalCountry
-    - LegalPostalCode
     - LegalState
-    - MilesToDeliver
     - Name
-    - OneManifestPerInvoice
     - OneOrderPerManifest
-    - ProductEndUse
-    - RailroadCarrier
-    - RollsPerPackOnLabel
-    - Salesman
-    - SalesmanKey
     - ShipToId
-    - ShipToKey
-    - ShipToWarehouse
     - ShortName
     - SoldTo
-    - SoldToKey
-    - TaxId
-    - User1
-    - VehicleTypeKey
     properties:
       ShipToKey:
         type: integer
@@ -1361,32 +1318,12 @@ definitions:
   SoldTo:
     type: object
     required:
-    - BrokerFax
-    - BrokerName
-    - BrokerPhone
-    - ContactPhone
-    - ContractFlag
-    - CustomerTypeKey
-    - DefaultEmailAddress
-    - IsActive
-    - LastDivOrderNumber
-    - LastUpdateDate
-    - LastUpdateOperator
-    - LastUpdateWorkstation
     - LegalAddress1
-    - LegalAddress2
     - LegalCity
     - LegalCountry
-    - LegalPostalCode
     - LegalState
     - Name
-    - OverRunPercent
-    - ShortName
     - SoldToId
-    - SoldToKey
-    - UnderRunPercent
-    - User1
-    - User2
     properties:
       SoldToKey:
         type: integer
