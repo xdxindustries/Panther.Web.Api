@@ -784,86 +784,103 @@ definitions:
     - VehicleTypeKey
     properties:
       ShipToKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       ShipToId:
         type: string
         example: MILL
+        maxLength: 40
       Name:
         type: string
         example: MILL
+        maxLength: 60
       ShortName:
         type: string
         example: MILL
+        maxLength: 20
       ContactPhone:
         type: string
         example: 123-456-7890
+        maxLength: 20
       LegalAddress1:
         type: string
         example: 2 Rue Angus Nord
+        maxLength: 60
       LegalAddress2:
         type: string
+        maxLength: 60
       LegalCity:
         type: string
         example: East Angus
+        maxLength: 60
       LegalState:
         type: string
         example: QC
+        maxLength: 20
       LegalPostalCode:
         type: string
         example: 1YR J0B
+        maxLength: 20
       LegalCountry:
         type: string
         example: CA
+        maxLength: 60
       DefaultEmailAddress:
         type: string
         format: email
         example: justan@example.com
+        maxLength: 80
       SoldToKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       InvoiceToKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       FreightOnBoardKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       FreightPaymentTypeKey:
-        type: number
-        example: 2.0
+        type: integer
+        example: 2
       SalesmanKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       Commission:
         type: number
+        format: decimal
         example: 0.0
       CorporateAccount:
         type: boolean
         example: false
       CorpArNumber:
         type: string
+        maxLength: 20
       ProductEndUse:
         type: string
         example: INTERNAL
+        maxLength: 10
       DestinationCountry:
         type: string
         example: CA
+        maxLength: 30
       VehicleTypeKey:
-        type: number
-        example: 1.0
+        type: integer
+        example: 1
       RailroadCarrier:
         type: string
+        maxLength: 30
       DaysToDeliver:
-        type: number
-        example: 0.0
+        type: integer
+        example: 0
       MilesToDeliver:
-        type: number
-        example: 0.0
+        type: integer
+        example: 0
       ShipToWarehouse:
         type: boolean
         example: false
       ClampTruckCode:
         type: string
+        maxLength: 10
       RollsPerPackOnLabel:
         type: boolean
         example: false
@@ -871,8 +888,8 @@ definitions:
         type: boolean
         example: false
       EnglishAndMetricManifest:
-        type: boolean
-        example: false
+        type: string
+        maxLength: 30
       IsActive:
         type: boolean
         example: true
@@ -885,27 +902,41 @@ definitions:
       LastUpdateOperator:
         type: string
         example: mark
+        maxLength: 20
       LastUpdateWorkstation:
         type: string
         example: Portal
+        maxLength: 30
       User1:
         type: string
+        maxLength: 100
       ContactName:
         type: string
+        maxLength: 80
       ContactUrl:
         type: string
         format: uri
+        maxLength: 80
       AppointmentTypeKey:
-        type: number
+        type: integer
       OneManifestPerInvoice:
         type: boolean
         example: false
       TaxId:
         type: string
+        maxLength: 20
       CanadaCustomsInvoiceKey:
-        type: number
+        type: integer
       DunsNumber:
-        type: number
+        type: string
+        maxLength: 50
+      CurrencyKey:
+        type: integer
+      LocaleId:
+        type: string
+        maxLength: 10
+      MeasureSystemKey:
+        type: integer
       SoldTo:
         $ref: '#/definitions/SoldTo'
       InvoiceTo:
