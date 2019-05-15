@@ -146,6 +146,39 @@ paths:
               $ref: '#/definitions/Manifest'
         401:
           description: Unauthorized
+  /api/Deliveries:
+    get:
+      tags:
+      - Deliveries
+      summary: Gets a list of all pending deliveries in the system
+      parameters: []
+      responses:
+        200:
+          description: List of pending deliveries
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Delivery'
+        401:
+          description: Unauthorized
+    post:
+      tags:
+      - Deliveries
+      summary: Creates a new delivery
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: The serialized JSON of the delivery to create
+        required: true
+        schema:
+          $ref: '#/definitions/Delivery'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/Delivery'
 securityDefinitions:
   basicAuth:
     type: basic
@@ -183,6 +216,53 @@ definitions:
       PlugWeight:
         type: number
         example: 0.0
+  Delivery:
+    type: object
+    required:
+    - AssignedLocation
+    - DeliveryMeasureType
+    - DeliveryQuantity
+    - Material
+    - Supplier
+    - TrailerIdentifier
+    - UnloadPriority
+    properties:
+      Supplier:
+        $ref: '#/definitions/Supplier'
+      TrailerIdentifier:
+        type: string
+        maxLength: 20
+      DeliveryMeasureType:
+        $ref: '#/definitions/MeasureType'
+      DeliveryQuantity:
+        type: number
+        format: decimal
+        example: 1500.0
+      Material:
+        $ref: '#/definitions/RawMaterial'
+      UnloadPriority:
+        type: integer
+      AssignedLocation:
+        $ref: '#/definitions/DeliveryLocation'
+    title: Delivery
+  DeliveryLocation:
+    type: object
+    required:
+    - DeliveryLocationKey
+    - Lot
+    - Stall
+    properties:
+      DeliveryLocationKey:
+        type: integer
+      Lot:
+        type: string
+        example: Prototype Mill Drop Lot A
+        maxLength: 60
+      Stall:
+        type: string
+        example: 1A
+        maxLength: 20
+    title: DeliveryLocation
   FreightOnBoard:
     type: object
     required:
@@ -1117,6 +1197,26 @@ definitions:
       EstWtTableEntryKey:
         type: integer
         example: 130
+  RawMaterial:
+    type: object
+    required:
+    - HarvestMethod
+    - HarvestYear
+    - MaterialType
+    - RawMaterialId
+    properties:
+      RawMaterialId:
+        type: integer
+        example: 1
+      MaterialType:
+        type: string
+        example: Wheat Straw
+      HarvestYear:
+        type: integer
+        example: 2018
+      HarvestMethod:
+        type: string
+        example: Swathed
   Salesman:
     type: object
     required:
@@ -1330,6 +1430,24 @@ definitions:
         $ref: '#/definitions/FreightOnBoard'
       Salesman:
         $ref: '#/definitions/Salesman'
+  Supplier:
+    type: object
+    required:
+    - Name
+    - SupplierCode
+    - SupplierId
+    properties:
+      SupplierId:
+        type: integer
+        example: 1
+      Name:
+        type: string
+        example: Columbia Straw Supply
+        maxLength: 60
+      SupplierCode:
+        type: string
+        example: CSS
+        maxLength: 20
   SoldTo:
     type: object
     required:
