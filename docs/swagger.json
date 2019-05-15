@@ -10,17 +10,22 @@ info:
 host: virtserver.swaggerhub.com
 basePath: /xdxindustries/Panther.Web.Api/0.1
 tags:
-- name: Orders
+- name: Deliveries
+  description: A Delivery of raw materials to the mill
+  externalDocs:
+    description: tbd documentation at
+    url: http://panth
+- name: Ignore-Orders
   description: A order for the mill
   externalDocs:
     description: tbd documenation at
     url: http://panthersys.com
-- name: Customers
+- name: Ignore-Customers
   description: Customers who buy orders
   externalDocs:
     description: tbd documenation at
     url: http://panthersys.com
-- name: Shipments
+- name: Ignore-Shipments
   description: Shipments of orders
   externalDocs:
     description: tbd documenation at
@@ -33,7 +38,7 @@ paths:
   /api/Orders:
     get:
       tags:
-      - Orders
+      - Ignore-Orders
       summary: Gets a list of all orders in the system
       parameters: []
       responses:
@@ -47,7 +52,7 @@ paths:
           description: Unauthorized
     post:
       tags:
-      - Orders
+      - Ignore-Orders
       summary: Creates a new order
       consumes:
       - application/json
@@ -64,7 +69,7 @@ paths:
   /api/Orders/{orderKey}:
     get:
       tags:
-      - Orders
+      - Ignore-Orders
       summary: Returns an order by Key.
       parameters:
       - name: orderKey
@@ -83,7 +88,7 @@ paths:
   /api/Customers:
     get:
       tags:
-      - Customers
+      - Ignore-Customers
       summary: Gets list of acceptable customers
       parameters: []
       responses:
@@ -97,7 +102,7 @@ paths:
           description: Unauthorized
     post:
       tags:
-      - Customers
+      - Ignore-Customers
       summary: Creates a new customer
       consumes:
       - application/json
@@ -114,7 +119,7 @@ paths:
   /api/Customers/{ShipToKey}:
     get:
       tags:
-      - Customers
+      - Ignore-Customers
       summary: Returns a Customer by ShipToKey.
       parameters:
       - name: ShipToKey
@@ -134,7 +139,7 @@ paths:
   /api/Shipments:
     get:
       tags:
-      - Shipments
+      - Ignore-Shipments
       summary: Gets list of shipments
       parameters: []
       responses:
@@ -227,10 +232,10 @@ definitions:
     - TrailerIdentifier
     - UnloadPriority
     properties:
-      Supplier:
-        $ref: '#/definitions/Supplier'
+      Supplier: {}
       TrailerIdentifier:
         type: string
+        example: WA-B154A32
         maxLength: 20
       DeliveryMeasureType:
         $ref: '#/definitions/MeasureType'
@@ -247,10 +252,6 @@ definitions:
     title: Delivery
   DeliveryLocation:
     type: object
-    required:
-    - DeliveryLocationKey
-    - Lot
-    - Stall
     properties:
       DeliveryLocationKey:
         type: integer
@@ -1435,11 +1436,33 @@ definitions:
     required:
     - Name
     - SupplierCode
-    - SupplierId
+    - SupplierKey
     properties:
-      SupplierId:
+      SupplierKey:
         type: integer
         example: 1
+      Name:
+        type: string
+        example: Columbia Straw Supply
+        maxLength: 60
+      SupplierCode:
+        type: string
+        example: CSS
+        maxLength: 20
+  SupplierKey:
+    type: object
+    required:
+    - SupplierKey
+    properties:
+      SupplierKey:
+        type: integer
+        example: 1
+  SupplierNew:
+    type: object
+    required:
+    - Name
+    - SupplierCode
+    properties:
       Name:
         type: string
         example: Columbia Straw Supply
