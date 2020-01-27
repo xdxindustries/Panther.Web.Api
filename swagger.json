@@ -1,0 +1,602 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Panther.Web.Api",
+    "description" : "Panther Systems Web API",
+    "contact" : {
+      "name" : "Steve Smith",
+      "email" : "ssmith@panthersys.com"
+    },
+    "version" : "0.2"
+  },
+  "tags" : [ {
+    "name" : "Deliveries",
+    "description" : "A Delivery of raw materials to the mill",
+    "externalDocs" : {
+      "description" : "tbd documentation at",
+      "url" : "http://panthersys.com"
+    }
+  } ],
+  "security" : [ {
+    "basicAuth" : [ ]
+  } ],
+  "paths" : {
+    "/api/Deliveries" : {
+      "get" : {
+        "tags" : [ "Deliveries" ],
+        "summary" : "Gets a list of all pending and recently completed deliveries in the system",
+        "responses" : {
+          "200" : {
+            "description" : "List of pending deliveries",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Delivery"
+                  }
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request. User ID must be an integer and larger than 0."
+          },
+          "401" : {
+            "description" : "Authorization information is missing, invalid or client is unauthorized."
+          },
+          "404" : {
+            "description" : "No deliveries are pending or recently compelted."
+          },
+          "5XX" : {
+            "description" : "Unexpected error."
+          }
+        }
+      }
+    },
+    "/api/Delivery" : {
+      "put" : {
+        "tags" : [ "Deliveries" ],
+        "summary" : "Creates a new delivery",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Delivery"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request, content does not follow expected schema http://here"
+          },
+          "401" : {
+            "description" : "Authorization information is missing, invalid or client is unauthorized."
+          },
+          "5XX" : {
+            "description" : "Unexpected error."
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DeliveryNew"
+              }
+            }
+          },
+          "description" : "The serialized JSON of the delivery to create",
+          "required" : true
+        }
+      }
+    },
+    "/api/Delivery/{DeliveryKey}" : {
+      "post" : {
+        "tags" : [ "Deliveries" ],
+        "summary" : "Updates details about a delivery",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "DeliveryKey",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true,
+          "description" : "Key of the delivery to update"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Delivery"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request, content does not follow expected schema http://here"
+          },
+          "401" : {
+            "description" : "Authorization information is missing, invalid or client is unauthorized."
+          },
+          "404" : {
+            "description" : "DeliveryKey ____ is not found, unable to update."
+          },
+          "5XX" : {
+            "description" : "Unexpected error."
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DeliveryUpdate"
+              }
+            }
+          },
+          "description" : "The serialized JSON of the delivery to update",
+          "required" : true
+        }
+      }
+    },
+    "/api/ExampleWebHook" : {
+      "post" : {
+        "tags" : [ "Deliveries" ],
+        "summary" : "Updates registered webook on delivery status update",
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          }
+        },
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Delivery"
+              }
+            }
+          },
+          "required" : true
+        }
+      }
+    },
+    "/api/DeliveryLots" : {
+      "get" : {
+        "summary" : "Provides a list of lots that the current user is allowed to delivery to, and get details about.",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/DeliveryLot"
+                  }
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Authorization information is missing, invalid or client is unauthorized."
+          },
+          "404" : {
+            "description" : "There are no lots available for delivery authorized for current client."
+          },
+          "5XX" : {
+            "description" : "Unexpected error."
+          }
+        }
+      }
+    },
+    "/api/DeliveryLot/{LotKey}" : {
+      "get" : {
+        "summary" : "Get details about a delivery lot, and available delivery locations",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "LotKey",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true,
+          "description" : "Key of the delivery lot to get details about"
+        } ],
+        "tags" : [ "Deliveries" ],
+        "responses" : {
+          "200" : {
+            "description" : "OK"
+          },
+          "401" : {
+            "description" : "Authorization information is missing, invalid."
+          },
+          "404" : {
+            "description" : "Delivery Lot specified was not found, or client is unauthorized."
+          },
+          "5XX" : {
+            "description" : "Unexpected error."
+          }
+        }
+      }
+    }
+  },
+  "x-components" : { },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/xdxindustries/Panther.Web.Api/0.2"
+  } ],
+  "components" : {
+    "securitySchemes" : {
+      "basicAuth" : {
+        "type" : "http",
+        "scheme" : "basic"
+      }
+    },
+    "schemas" : {
+      "Delivery" : {
+        "title" : "Delivery",
+        "required" : [ "DeliveryKey", "Supplier", "TrailerIdentifier", "DeliveryMeasureType", "DeliveryQuantity", "RawMaterial", "HarvestYear", "HarvestMethod", "UnloadPriority", "AssignedLocation" ],
+        "type" : "object",
+        "properties" : {
+          "DeliveryKey" : {
+            "type" : "integer"
+          },
+          "Supplier" : {
+            "$ref" : "#/components/schemas/Supplier"
+          },
+          "Status" : {
+            "type" : "string",
+            "enum" : [ "inRoute", "inLot", "unloading", "complete" ],
+            "description" : "Status of the delivery, one of:\n * `inRoute` - Left stack/source in route to mill\n * `inLot` - At the drop lot, but still loaded\n * `unloading` - Trailer is being actively unloaded\n * `complete` - Delivery is complete, trailer is empty ready for pickup\n"
+          },
+          "TrailerIdentifier" : {
+            "type" : "string",
+            "maxLength" : 20,
+            "example" : "WA-B154A32"
+          },
+          "BaleCount" : {
+            "type" : "number",
+            "format" : "integer",
+            "example" : 48
+          },
+          "EstimatedWeight" : {
+            "type" : "number",
+            "format" : "decimal",
+            "example" : 25.35,
+            "description" : "Estimation of the weight of the delivery, in imperial tons"
+          },
+          "EstimatedMoistureWhenReceived" : {
+            "type" : "number",
+            "format" : "decimal",
+            "description" : "This is an estimated moisture value based on an average of moisture values when the straw was originally purchased.  This WILL NOT be an estimate of CURRENT moisture.",
+            "minimum" : 0.0,
+            "maximum" : 1.0,
+            "example" : 0.1204
+          },
+          "RawMaterial" : {
+            "$ref" : "#/components/schemas/RawMaterial"
+          },
+          "UnloadPriority" : {
+            "type" : "integer",
+            "minimum" : 0,
+            "maximum" : 1000,
+            "default" : 200,
+            "description" : "Numerical priortiy request where the larger the number, the more important it is to unload quickly."
+          },
+          "UnloadByDateTime" : {
+            "type" : "string",
+            "format" : "datetime",
+            "description" : "A request by the delivery agent to have material unloaded by specified time.  This is an optional field, and is only a request."
+          },
+          "ExpectedUnloadBy" : {
+            "type" : "string",
+            "format" : "datetime",
+            "description" : "An ETA of when this delivery will be unloaded by.  This is optionally set when it can actually be estimated. Absence of this field indicates unknown time."
+          },
+          "Webhook" : {
+            "type" : "string",
+            "format" : "url",
+            "example" : "https://apigateway.aws.amazon.com/xdxindustries/pantherIntegrationWebook?id=1"
+          },
+          "AssignedLocation" : {
+            "$ref" : "#/components/schemas/DeliveryLocation"
+          }
+        }
+      },
+      "DeliveryUpdate" : {
+        "title" : "Delivery",
+        "required" : [ "DeliveryKey" ],
+        "type" : "object",
+        "properties" : {
+          "DeliveryKey" : {
+            "type" : "integer"
+          },
+          "Supplier" : {
+            "$ref" : "#/components/schemas/Supplier"
+          },
+          "Status" : {
+            "type" : "string",
+            "enum" : [ "inRoute", "inLot", "unloading", "complete" ],
+            "description" : "Status of the delivery, one of:\n * `inRoute` - Left stack/source in route to mill\n * `inLot` - At the drop lot, but still loaded\n * `unloading` - Trailer is being actively unloaded\n * `complete` - Delivery is complete, trailer is empty ready for pickup\n"
+          },
+          "TrailerIdentifier" : {
+            "type" : "string",
+            "maxLength" : 20,
+            "example" : "WA-B154A32"
+          },
+          "BaleCount" : {
+            "type" : "number",
+            "format" : "integer",
+            "example" : 48
+          },
+          "EstimatedWeight" : {
+            "type" : "number",
+            "format" : "decimal",
+            "example" : 25.35,
+            "description" : "Estimation of the weight of the delivery, in imperial tons"
+          },
+          "EstimatedMoistureWhenReceived" : {
+            "type" : "number",
+            "format" : "decimal",
+            "description" : "This is an estimated moisture value based on an average of moisture values when the straw was originally purchased.  This WILL NOT be an estimate of CURRENT moisture.",
+            "minimum" : 0.0,
+            "maximum" : 1.0,
+            "example" : 0.1204
+          },
+          "RawMaterial" : {
+            "$ref" : "#/components/schemas/RawMaterial"
+          },
+          "UnloadPriority" : {
+            "type" : "integer",
+            "minimum" : 0,
+            "maximum" : 1000,
+            "default" : 200,
+            "description" : "Numerical priortiy request where the larger the number, the more important it is to unload quickly."
+          },
+          "UnloadByDateTime" : {
+            "type" : "string",
+            "format" : "datetime",
+            "description" : "A request by the delivery agent to have material unloaded by specified time.  This is an optional field, and is only a request."
+          },
+          "Webhook" : {
+            "type" : "string",
+            "format" : "url",
+            "example" : "https://apigateway.aws.amazon.com/xdxindustries/pantherIntegrationWebook?id=1"
+          },
+          "AssignedLocation" : {
+            "$ref" : "#/components/schemas/DeliveryLocation"
+          }
+        }
+      },
+      "DeliveryNew" : {
+        "title" : "Delivery (New)",
+        "required" : [ "Supplier", "TrailerIdentifier", "BaleCount", "EstimatedWeight", "EstimatedMoisture", "Material", "UnloadPriority", "LotLocation" ],
+        "type" : "object",
+        "properties" : {
+          "Supplier" : {
+            "type" : "object",
+            "oneOf" : [ {
+              "$ref" : "#/components/schemas/SupplierKey"
+            }, {
+              "$ref" : "#/components/schemas/SupplierNew"
+            } ]
+          },
+          "TrailerIdentifier" : {
+            "type" : "string",
+            "maxLength" : 20,
+            "example" : "WA-B154A32"
+          },
+          "BaleCount" : {
+            "type" : "number",
+            "format" : "integer",
+            "example" : 48
+          },
+          "EstimatedWeight" : {
+            "type" : "number",
+            "format" : "decimal",
+            "example" : 25.35,
+            "description" : "Estimation of the weight of the delivery, in imperial tons"
+          },
+          "EstimatedMoisture" : {
+            "type" : "number",
+            "format" : "decimal",
+            "minimum" : 0.0,
+            "maximum" : 1.0,
+            "example" : 0.1204
+          },
+          "RawMaterial" : {
+            "oneOf" : [ {
+              "$ref" : "#/components/schemas/RawMaterialKey"
+            }, {
+              "$ref" : "#/components/schemas/RawMaterialNew"
+            } ]
+          },
+          "UnloadPriority" : {
+            "type" : "integer",
+            "minimum" : 0,
+            "maximum" : 1000,
+            "default" : 200,
+            "description" : "Numerical priortiy request where the larger the number, the more important it is to unload quickly."
+          },
+          "UnloadByDateTime" : {
+            "type" : "string",
+            "format" : "datetime",
+            "description" : "A request by the delivery agent to have material unloaded by specified time.  This is an optional field, and is only a request."
+          },
+          "Webhook" : {
+            "type" : "string",
+            "format" : "url",
+            "maxLength" : 1024,
+            "example" : "https://apigateway.aws.amazon.com/xdxindustries/pantherIntegrationWebook?id=1"
+          },
+          "LotLocation" : {
+            "$ref" : "#/components/schemas/DeliveryLot"
+          }
+        }
+      },
+      "DeliveryLocation" : {
+        "title" : "DeliveryLocation",
+        "required" : [ "DeliveryLocationKey", "Lot", "Location" ],
+        "type" : "object",
+        "properties" : {
+          "DeliveryLocationKey" : {
+            "type" : "integer"
+          },
+          "Lot" : {
+            "$ref" : "#/components/schemas/DeliveryLotDetails"
+          },
+          "Location" : {
+            "type" : "string",
+            "maxLength" : 20,
+            "example" : "1A",
+            "description" : "This is most likely a stall number, but can be any physical description of the location in the lot"
+          }
+        }
+      },
+      "DeliveryLot" : {
+        "title" : "Delivery Lot (as Destination)",
+        "required" : [ "LotName" ],
+        "type" : "object",
+        "properties" : {
+          "LotName" : {
+            "type" : "string",
+            "maxLength" : 60,
+            "example" : "Prototype Mill Drop Lot A"
+          }
+        }
+      },
+      "DeliveryLotDetails" : {
+        "title" : "Delivery Lot Details",
+        "description" : "Details about a delivery lot",
+        "required" : [ "Lot", "LotAddress", "LotGPS" ],
+        "type" : "object",
+        "properties" : {
+          "LotName" : {
+            "type" : "string",
+            "maxLength" : 60,
+            "example" : "Prototype Mill Drop Lot A"
+          },
+          "LotAddress" : {
+            "type" : "string",
+            "format" : "address",
+            "example" : "400 S 567th st, Spokane, WA 99448"
+          },
+          "LotGPS" : {
+            "type" : "string",
+            "description" : "GPS Coordinates center of lot",
+            "format" : "LatLong",
+            "example" : "-125.643435452, 45.23423441"
+          },
+          "LotMap" : {
+            "type" : "string",
+            "format" : "url",
+            "maxLength" : 1024,
+            "example" : "https://panthersys.com/columbiapulp/lotMapA.png"
+          }
+        }
+      },
+      "RawMaterial" : {
+        "title" : "RawMaterial",
+        "required" : [ "RawMaterialKey", "MaterialType", "HarvestYear", "HarvestMethod" ],
+        "type" : "object",
+        "properties" : {
+          "RawMaterialKey" : {
+            "type" : "integer",
+            "example" : 1
+          },
+          "MaterialType" : {
+            "type" : "string",
+            "example" : "Wheat Straw"
+          },
+          "HarvestYear" : {
+            "type" : "integer",
+            "example" : 2018
+          },
+          "HarvestMethod" : {
+            "type" : "string",
+            "example" : "Swathed"
+          }
+        }
+      },
+      "RawMaterialKey" : {
+        "title" : "RawMaterial (Reference)",
+        "required" : [ "RawMaterialKey" ],
+        "type" : "object",
+        "properties" : {
+          "RawMaterialKey" : {
+            "type" : "integer",
+            "example" : 1
+          }
+        }
+      },
+      "RawMaterialNew" : {
+        "title" : "RawMaterial (New)",
+        "required" : [ "MaterialType", "HarvestYear", "HarvestMethod" ],
+        "type" : "object",
+        "properties" : {
+          "MaterialType" : {
+            "type" : "string",
+            "example" : "Wheat Straw"
+          },
+          "HarvestYear" : {
+            "type" : "integer",
+            "example" : 2018
+          },
+          "HarvestMethod" : {
+            "type" : "string",
+            "example" : "Swathed"
+          }
+        }
+      },
+      "Supplier" : {
+        "required" : [ "SupplierKey", "Name", "SupplierCode" ],
+        "type" : "object",
+        "properties" : {
+          "SupplierKey" : {
+            "type" : "integer",
+            "example" : 1
+          },
+          "Name" : {
+            "type" : "string",
+            "maxLength" : 60,
+            "example" : "Columbia Straw Supply"
+          },
+          "SupplierCode" : {
+            "type" : "string",
+            "maxLength" : 20,
+            "example" : "CSS"
+          }
+        }
+      },
+      "SupplierKey" : {
+        "title" : "Supplier (Reference)",
+        "required" : [ "SupplierKey" ],
+        "type" : "object",
+        "properties" : {
+          "SupplierKey" : {
+            "type" : "integer",
+            "example" : 1
+          }
+        }
+      },
+      "SupplierNew" : {
+        "title" : "Supplier (New)",
+        "required" : [ "Name", "SupplierCode" ],
+        "type" : "object",
+        "properties" : {
+          "Name" : {
+            "type" : "string",
+            "maxLength" : 60,
+            "example" : "Columbia Straw Supply"
+          },
+          "SupplierCode" : {
+            "type" : "string",
+            "maxLength" : 20,
+            "example" : "CSS"
+          }
+        }
+      }
+    }
+  }
+}
