@@ -90,6 +90,31 @@
       }
     },
     "/api/Delivery/{DeliveryKey}" : {
+      "get" : {
+        "tags" : [ "Deliveries" ],
+        "summary" : "Gets details about a specific delivery",
+        "parameters" : [ {
+          "in" : "path",
+          "name" : "DeliveryKey",
+          "schema" : {
+            "type" : "integer"
+          },
+          "required" : true,
+          "description" : "Key of the delivery to get details on"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Delivery"
+                }
+              }
+            }
+          }
+        }
+      },
       "post" : {
         "tags" : [ "Deliveries" ],
         "summary" : "Updates details about a delivery",
