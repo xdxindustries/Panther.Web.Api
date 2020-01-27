@@ -39,9 +39,6 @@
               }
             }
           },
-          "400" : {
-            "description" : "Bad request. User ID must be an integer and larger than 0."
-          },
           "401" : {
             "description" : "Authorization information is missing, invalid or client is unauthorized."
           },
@@ -123,7 +120,7 @@
             "description" : "Authorization information is missing, invalid or client is unauthorized."
           },
           "404" : {
-            "description" : "DeliveryKey ____ is not found, unable to update."
+            "description" : "DeliveryKey {DeliveryKey} is not found, unable to update."
           },
           "5XX" : {
             "description" : "Unexpected error."
@@ -142,7 +139,7 @@
         }
       }
     },
-    "/api/ExampleWebHook" : {
+    "/client_api/ExampleWebHook" : {
       "post" : {
         "tags" : [ "Deliveries" ],
         "summary" : "Updates registered webook on delivery status update",
@@ -528,6 +525,7 @@
       },
       "DeliveryLotLocation" : {
         "title" : "DeliveryLocation",
+        "description" : "Details about a specific delivery location within a Delivery Lot",
         "required" : [ "DeliveryLotLocationKey", "Lot", "Location" ],
         "type" : "object",
         "properties" : {
@@ -537,7 +535,7 @@
           "Lot" : {
             "$ref" : "#/components/schemas/DeliveryLot"
           },
-          "Location" : {
+          "LocationName" : {
             "type" : "string",
             "maxLength" : 20,
             "example" : "1A",
