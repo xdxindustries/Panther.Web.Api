@@ -21,7 +21,7 @@
     "basicAuth" : [ ]
   } ],
   "paths" : {
-    "/api/Deliveries" : {
+    "/Deliveries" : {
       "get" : {
         "tags" : [ "Deliveries" ],
         "summary" : "Gets a list of all pending and recently completed deliveries in the system",
@@ -51,7 +51,7 @@
         }
       }
     },
-    "/api/Delivery" : {
+    "/Delivery" : {
       "put" : {
         "tags" : [ "Deliveries" ],
         "summary" : "Creates a new delivery",
@@ -89,7 +89,7 @@
         }
       }
     },
-    "/api/Delivery/{DeliveryKey}" : {
+    "/Delivery/{DeliveryKey}" : {
       "get" : {
         "tags" : [ "Deliveries" ],
         "summary" : "Gets details about a specific delivery",
@@ -185,7 +185,7 @@
         }
       }
     },
-    "/api/DeliveryLots" : {
+    "/DeliveryLots" : {
       "get" : {
         "summary" : "Provides a list of lots that the current user is allowed to delivery to, and get details about.",
         "tags" : [ "DeliveryLocations" ],
@@ -215,7 +215,7 @@
         }
       }
     },
-    "/api/DeliveryLot/{LotKey}" : {
+    "/DeliveryLot/{LotKey}" : {
       "get" : {
         "summary" : "Get details about a delivery lot, and available delivery locations",
         "parameters" : [ {
@@ -262,7 +262,7 @@
         }
       }
     },
-    "/api/DeliveryLot/{LotKey}/{LotLocationKey}" : {
+    "/DeliveryLot/{LotKey}/{LotLocationKey}" : {
       "get" : {
         "summary" : "Get details about a delivery lot, and available delivery locations",
         "parameters" : [ {
